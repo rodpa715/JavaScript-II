@@ -62,8 +62,12 @@ function contains(item, list, cb) {
 contains("Gum", items, logger)
 /* STRETCH PROBLEM */
 
+let newItems = [1,2,3,4,2,5,4,4,5,6,5,8,7,4,8]
 function removeDuplicates(array, cb) {
   // removeDuplicates removes all duplicate values from the given array.
   // Pass the duplicate free array to the callback function.
   // Do not mutate the original array.
+    let newArray = array.filter((item,index) => newItems.indexOf(item) >= index)
+    cb(newArray);
 }
+removeDuplicates(newItems, logger)
