@@ -80,7 +80,22 @@ console.log(ticketPriceTotal);
 // Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
 // Problem 1
+//The team wants a new array with the full name and email of members who donated below or equal to 15 Euros so that they can scold them on how to be more altruistic and extort them into charity.
+let donationSort = runners.filter(item => item.donation <= 15)
+let selfishRunners = []
+donationSort.forEach(item => selfishRunners.push({fullname: `${item.first_name} ${item.last_name}`, email: item.email}))
+console.log(selfishRunners)
 
 // Problem 2
+//The team wants you to return a new array with a running number and name. Each running number should start with the amount their donated followed by their firstName, the initial of ther last name and then their id. 236-Patrick R.-155 with the dashes
+let numbering = runners.map(item =>`${item.donation}-${item.first_name} ${item.last_name[0]}.-${item.id}`)
+console.log(numbering)
 
 // Problem 3
+// The theam wants you to find out the sum of everywhone who donated more or equal than 133 € so that they can announce it at the end of the show, they also only want their names and emails so that they can ask for more next time
+let richRunners = []
+let filter = runners.filter(item => item.donation >= 133)
+filter.forEach(item => richRunners.push({fullname: `${item.first_name} ${item.last_name}`, donation: item.donation}))
+let sumBigDonations = richRunners.reduce((a,b) => a + b.donation, 0)
+console.log(sumBigDonations)
+console.log("The super rich people together offered: " + sumBigDonations + " and the super poor added the rest :" + (ticketPriceTotal-sumBigDonations))
