@@ -22,7 +22,15 @@ house()
 // ==== Challenge 2: Create a counter function ====
 const counter = () => {
   // Return a function that when invoked increments and returns a counter variable.
+  let count = 0
+  function increment(){
+    count++
+    console.log(count)
+  }
+  return increment
 };
+const increment = counter();
+increment();
 // Example usage: const newCounter = counter();
 // newCounter(); // 1
 // newCounter(); // 2
@@ -32,4 +40,22 @@ const counterFactory = () => {
   // Return an object that has two methods called `increment` and `decrement`.
   // `increment` should increment a counter variable in closure scope and return it.
   // `decrement` should decrement the counter variable and return it.
+  let count = 0
+  const object = {
+    increment: function(){
+      return ++count
+    },
+    decrement: function(){
+      return --count
+    }
+  }
+  return object
 };
+const factory = counterFactory()
+console.log(factory.increment())//+1 = 1
+console.log(factory.increment())//+1 = 2
+console.log(factory.increment())//+1 = 3
+console.log(factory.increment())//+1 = 4
+console.log(factory.decrement())//+1 = 3
+console.log(factory.decrement())//+1 = 2
+
