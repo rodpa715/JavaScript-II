@@ -56,28 +56,46 @@ const runners = [{"id":1,"first_name":"Charmain","last_name":"Seiler","email":"c
 // ==== Challenge 1: Use .forEach() ====
 // The event director needs both the first and last names of each runner for their running bibs.  Combine both the first and last names into a new array called fullName. 
 let fullName = [];
+runners.forEach(function(id){
+    fullName.push(`${id.first_name} ${id.last_name}`)
+})
 console.log(fullName);
 
 // ==== Challenge 2: Use .map() ====
 // The event director needs to have all the runner's first names converted to uppercase because the director BECAME DRUNK WITH POWER. Convert each first name into all caps and log the result
-let allCaps = [];
+let allCaps = runners.map(id => id.first_name.toUpperCase());
 console.log(allCaps); 
 
 // ==== Challenge 3: Use .filter() ====
 // The large shirts won't be available for the event due to an ordering issue.  Get a list of runners with large sized shirts so they can choose a different size. Return an array named largeShirts that contains information about the runners that have a shirt size of L and log the result
-let largeShirts = [];
+let largeShirts = runners.filter( id => id.shirt_size === "L")
 console.log(largeShirts);
 
 // ==== Challenge 4: Use .reduce() ====
 // The donations need to be tallied up and reported for tax purposes. Add up all the donations into a ticketPriceTotal array and log the result
-let ticketPriceTotal = [];
+let ticketPriceTotal = runners.reduce( (accumulator, id) => accumulator + id.donation, 0)
 console.log(ticketPriceTotal);
 
 // ==== Challenge 5: Be Creative ====
 // Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
 // Problem 1
+//The team wants a new array with the full name and email of members who donated below or equal to 15 Euros so that they can scold them on how to be more altruistic and extort them into charity.
+let donationSort = runners.filter(item => item.donation <= 15)
+let selfishRunners = []
+donationSort.forEach(item => selfishRunners.push({fullname: `${item.first_name} ${item.last_name}`, email: item.email}))
+console.log(selfishRunners)
 
 // Problem 2
+//The team wants you to return a new array with a running number and name. Each running number should start with the amount their donated followed by their firstName, the initial of ther last name and then their id. 236-Patrick R.-155 with the dashes
+let numbering = runners.map(item =>`${item.donation}-${item.first_name} ${item.last_name[0]}.-${item.id}`)
+console.log(numbering)
 
 // Problem 3
+// The theam wants you to find out the sum of everywhone who donated more or equal than 133 € so that they can announce it at the end of the show, they also only want their names and emails so that they can ask for more next time
+let richRunners = []
+let filter = runners.filter(item => item.donation >= 133)
+filter.forEach(item => richRunners.push({fullname: `${item.first_name} ${item.last_name}`, donation: item.donation}))
+let sumBigDonations = richRunners.reduce((a,b) => a + b.donation, 0)
+console.log(sumBigDonations)
+console.log("The super rich people together offered: " + sumBigDonations + " and the super poor added the rest :" + (ticketPriceTotal-sumBigDonations))
